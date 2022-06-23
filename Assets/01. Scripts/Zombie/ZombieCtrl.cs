@@ -22,7 +22,7 @@ public class ZombieCtrl : PoolableMono
 
     private Transform _zombieTransform;
     private Transform _targetTransform;
-    private NavMeshAgent _agent;
+    public NavMeshAgent _agent;
     private Animator _anim;
 
     private readonly int hashTrace = Animator.StringToHash("IsTrace");
@@ -121,6 +121,7 @@ public class ZombieCtrl : PoolableMono
                     {
                         sphere.enabled = false;
                     }
+                    GameManager.Instance.AddMoney(10);
                     yield return new WaitForSeconds(3f);
                     StopAllCoroutines();
                     this.gameObject.SetActive(false);
@@ -140,32 +141,9 @@ public class ZombieCtrl : PoolableMono
         }
     }
 
-    private IEnumerator OnReset()
-    {
-        yield return new WaitForSeconds(1.0f);
-
-        state = State.IDLE;
-        isDead = false;
-        GetComponent<CapsuleCollider>().enabled = true;
-        SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
-        foreach (SphereCollider sphere in spheres)
-        {
-            if (sphere.tag == "Hand")
-                sphere.enabled = false;
-            else if (sphere.tag == "Head")
-                sphere.enabled = true;
-        }
-
-        StartCoroutine(CheckZombieState());
-
-        StartCoroutine(ZombieAction());
-    }
-
     public override void Reset()
     {
-        StartCoroutine(OnReset());
-        /*
-        state = State.IDLE;
+        state = State.TRACE;
         isDead = false;
         GetComponent<CapsuleCollider>().enabled = true;
         SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
@@ -176,11 +154,10 @@ public class ZombieCtrl : PoolableMono
             else if (sphere.tag == "Head")
                 sphere.enabled = true;
         }
-
         StartCoroutine(CheckZombieState());
 
         StartCoroutine(ZombieAction());
-        */
+        _agent.enabled = false;
     }
 
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)

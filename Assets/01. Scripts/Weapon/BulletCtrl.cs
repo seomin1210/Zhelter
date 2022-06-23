@@ -17,6 +17,7 @@ public class BulletCtrl : PoolableMono
         {
             zombie = other.gameObject.GetComponent<ZombieCtrl>();
             zombie.Hit(damage);
+            GameManager.Instance.AddMoney(2);
             gameObject.SetActive(false);
             PoolManager.Instance.Push(this);
         }
@@ -24,11 +25,7 @@ public class BulletCtrl : PoolableMono
         {
             zombie = other.gameObject.GetComponentInParent<ZombieCtrl>();
             zombie.Hit(damage * 2);
-            gameObject.SetActive(false);
-            PoolManager.Instance.Push(this);
-        }
-        else
-        {
+            GameManager.Instance.AddMoney(5);
             gameObject.SetActive(false);
             PoolManager.Instance.Push(this);
         }
@@ -39,11 +36,19 @@ public class BulletCtrl : PoolableMono
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletTransform = GetComponent<Transform>();
         bulletRigidbody.velocity = Vector3.zero;
+
+        Invoke("RemoveBullet", 10f);
     }
 
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)
     {
         transform.SetPositionAndRotation(pos, rot);
         bulletRigidbody.AddForce(bulletTransform.forward * force);
+    }
+
+    private void RemoveBullet()
+    {
+        gameObject.SetActive(false);
+        PoolManager.Instance.Push(this);
     }
 }

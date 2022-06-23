@@ -12,6 +12,7 @@ public class ZombieSpawner : MonoBehaviour
     {
         ZombieCtrl zombie = PoolManager.Instance.Pop("Zombie1") as ZombieCtrl;
         zombie.transform.position = posToSpawn;
+        zombie._agent.enabled = true;
     }
 
     IEnumerator SpawnZombieCoroutine()

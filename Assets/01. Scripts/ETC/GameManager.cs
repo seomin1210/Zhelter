@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PoolingListSO _initList = null;
 
+    int money = 0;
+
     private void Awake()
     {
         if(Instance != null)
@@ -25,5 +27,10 @@ public class GameManager : MonoBehaviour
     {
         foreach (PoolingPair pair in _initList.list)
             PoolManager.Instance.CreatePool(pair.prefab, pair.poolCnt);
+    }
+
+    public void AddMoney(int add)
+    {
+        money += add;
     }
 }
