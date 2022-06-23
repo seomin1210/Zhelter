@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{10FB6726-9DAD-B484-44C7-89B52CFAC09C}</ProjectGuid>
+    <ProjectGuid>{4E85CF2D-B52F-60AF-4337-FDABA46C5B37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -67,8 +67,8 @@
     <Compile Include="Assets\01. Scripts\ETC\PoolManager.cs" />
     <Compile Include="Assets\01. Scripts\Player\FireCtrl.cs" />
     <Compile Include="Assets\01. Scripts\Weapon\BulletCtrl.cs" />
-    <Compile Include="Assets\01. Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\01. Scripts\ETC\ZombieSpawner.cs" />
+    <Compile Include="Assets\01. Scripts\Player\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

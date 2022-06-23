@@ -140,8 +140,10 @@ public class ZombieCtrl : PoolableMono
         }
     }
 
-    public override void Reset()
+    private IEnumerator OnReset()
     {
+        yield return new WaitForSeconds(1.0f);
+
         state = State.IDLE;
         isDead = false;
         GetComponent<CapsuleCollider>().enabled = true;
@@ -157,6 +159,28 @@ public class ZombieCtrl : PoolableMono
         StartCoroutine(CheckZombieState());
 
         StartCoroutine(ZombieAction());
+    }
+
+    public override void Reset()
+    {
+        StartCoroutine(OnReset());
+        /*
+        state = State.IDLE;
+        isDead = false;
+        GetComponent<CapsuleCollider>().enabled = true;
+        SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
+        foreach (SphereCollider sphere in spheres)
+        {
+            if (sphere.tag == "Hand")
+                sphere.enabled = false;
+            else if (sphere.tag == "Head")
+                sphere.enabled = true;
+        }
+
+        StartCoroutine(CheckZombieState());
+
+        StartCoroutine(ZombieAction());
+        */
     }
 
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)
