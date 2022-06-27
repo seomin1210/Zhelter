@@ -16,6 +16,7 @@ public class ZombieCtrl : PoolableMono
 
     public State state = State.TRACE;
     public int hp = 10;
+    public int damage = 15;
     public float traceDist = 1000f;
     public float attackDist = 2f;
     public bool isDead = false;
