@@ -23,6 +23,14 @@ public class GameManager : MonoBehaviour
         CreatePool();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameQuit();
+        }
+    }
+
     private void CreatePool()
     {
         foreach (PoolingPair pair in _initList.list)
@@ -32,5 +40,10 @@ public class GameManager : MonoBehaviour
     public void AddMoney(int add)
     {
         money += add;
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public int hp = 100;
-    public int maxHp = 100;
-    public int regeneration = 2;
+    public float hp = 100;
+    public float maxHp = 100;
+    public float regeneration = 2;
 
     public float moveSpeed = 10f;
     public float turnSpeed = 80f;
@@ -58,15 +58,17 @@ public class PlayerController : MonoBehaviour
             _anim.CrossFade("Idle", 0.25f);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision col)
     {
-        if(other.tag == "Hand")
+        if (col.transform.tag == "Hand")
         {
-            ZombieCtrl zombie = other.GetComponent<ZombieCtrl>();
+            ZombieCtrl zombie = col.transform.GetComponentInParent<ZombieCtrl>();
             hp -= zombie.damage;
-            if(hp <= 0)
+            UIManager.Instance.HpUIUpdate(hp / maxHp);
+            if (hp <= 0)
             {
                 isDead = true;
+                GameManager.Instance.GameQuit();
             }
         }
     }
